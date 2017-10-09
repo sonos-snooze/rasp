@@ -10,19 +10,19 @@ def alarm_check(time):
          minute = time /100
          time = time % 100
          sec = time
-         if now.hour-6 == hour:
+         if now.hour == hour:
                  print('alarm_check true')
                  return 1
          return 0
 
 def play_alarm(songid):
-        base = "http://localhost:5005/RoomName/spotify/now/spotify:track:"
+        base = "http://localhost:5005/Living%20Room/spotify/now/spotify:track:"
         if songid:
                 final = base+songid ##might give error since songid is null
                 print(final);
-##                r = requests.get(final)
+                r = requests.get(final)
 
-        
+
 ##while 1
 #sleep(x)
 
@@ -31,6 +31,7 @@ now = datetime.datetime.now()
 ##update to every 5 min
 r = requests.get("http://shrouded-scrubland-66108.herokuapp.com/api/alarms")
 alarms = r.json()
+
 
 
 #iterate through alarms array
