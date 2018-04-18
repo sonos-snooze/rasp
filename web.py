@@ -11,8 +11,8 @@ def alarm_check(time):
          minute = time /100
          time = time % 100
          sec = time
-         if now.hour == hour:  ##adjust later to actually reflect proper check
-                 print('alarm_check true')
+         if now.hour == hour:
+                 ##alarm check succeeded
                  return 1
          return 0
 
@@ -23,8 +23,7 @@ def play_alarm(songid):
         ##begins playing song
         base = "http://localhost:5005/Living%20Room/spotify/now/spotify:track:"
         if songid: ##null checks songid
-                final = base+songid ##might give error since songid is null
-                print(final);
+                final = base+songid 
                 r = requests.get(final)
 
         for v in range(5,100,5):  ##ups volume
@@ -38,20 +37,14 @@ def play_alarm(songid):
 
 while True:
         now = datetime.datetime.now()
-        print(now)
-        print(now.second)
-        print(now.minute)
 
-        ##update to every 5 min (necessary? possible but not sure if necessary)
         r = requests.get("http://shrouded-scrubland-66108.herokuapp.com/api/alarms")
         alarms = r.json()
-
 
         #iterate through alarms array
         for a in alarms:
                 if alarm_check(a['alarm_time']):
-                        print('calling play_alarm')
-                        print(a['spotifySongID'])
+
                         play_alarm(a['spotifySongID'])
 
 
